@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +19,6 @@ public class CommandController {
 	private StringBuilder sb;
 	private long date;
 	private List<String> history;
-	private List localHistory;
 	private final String DELIMETER = ";";
 	public CommandController(){
 		//MM/DD/YYYY-HH:mm:SS<AM|PM> Query:<query> Result: <Result>
@@ -30,8 +28,8 @@ public class CommandController {
 		
 		
 		sb=new StringBuilder();
-		history=new ArrayList();
-		localHistory=new ArrayList();
+		history=new ArrayList<String>();
+		new ArrayList<Object>();
 		cs= new CalculatorService();
 		
 	}

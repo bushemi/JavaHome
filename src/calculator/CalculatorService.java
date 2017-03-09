@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import calculator.commands.Calculate;
+
 public class CalculatorService {
 	private ArrayList<String> ls;
 	private ArrayList<String> poriadokVipolnenia;
@@ -12,6 +14,7 @@ public class CalculatorService {
 	int u =0;
 	private static SimpleDateFormat f;
 	private static final String DELIMETER = ";";
+	Calculate c=new Calculate();
 	public CalculatorService(){
 			ls= new ArrayList<String>();
 			poriadokVipolnenia= new ArrayList<String>();
@@ -81,7 +84,7 @@ public void rep(String s) {
 	ggg(s+"+0");
 	
 	poriadokVipolnenia.removeAll(poriadokVipolnenia);
-	Validator v = new Validator();
+	Validator v = Validator.getInstance();
 	if (v.check(s)){throw new RuntimeException("недопустимые символы");}
 	
 	ret();
@@ -126,60 +129,16 @@ private void ret()
 	
 private void count() {
 	sum=0;
-	String s;
+	String s="";
 	try{
 		
-	for (int i=0;i<poriadokVipolnenia.size();i=i+2){
-		
-		s = poriadokVipolnenia.get(i).toLowerCase();
-		
-	switch (s){
-	case("-"):
-	
-				if ((i+2<poriadokVipolnenia.size())){
-					if ((poriadokVipolnenia.get(i+2).toLowerCase().equals("*"))||(poriadokVipolnenia.get(i+2).toLowerCase().equals("/")))
-					{if (poriadokVipolnenia.get(i+2).toLowerCase().equals("*")){
-						sum=-(Double.parseDouble(poriadokVipolnenia.get(i+1))*Double.parseDouble(poriadokVipolnenia.get(i+3)))+sum;
-						//System.out.println("-+"+sum);
-						i=i+2;}
-					if (poriadokVipolnenia.get(i+2).toLowerCase().equals("/")){
-						sum=-(Double.parseDouble(poriadokVipolnenia.get(i+1))/Double.parseDouble(poriadokVipolnenia.get(i+3)))+sum;
-						i=i+2;}
-					}else{sum=sum-Double.parseDouble(poriadokVipolnenia.get(i+1));}
-					}
-		else{
-			sum=-Double.parseDouble(poriadokVipolnenia.get(i+1))+sum;}
-		
-	
-	break;
-	case("+"):
-	if (i+2<poriadokVipolnenia.size()){
-			if ((poriadokVipolnenia.get(i+2).toLowerCase().equals("*"))||(poriadokVipolnenia.get(i+2).toLowerCase().equals("/"))){	
-				if (poriadokVipolnenia.get(i+2).toLowerCase().equals("*")){sum=(Double.parseDouble(poriadokVipolnenia.get(i+1))*Double.parseDouble(poriadokVipolnenia.get(i+3)))+sum;
-				}
-				if (poriadokVipolnenia.get(i+2).toLowerCase().equals("/")){sum=(Double.parseDouble(poriadokVipolnenia.get(i+1))/Double.parseDouble(poriadokVipolnenia.get(i+3)))+sum;
-				}
-		i=i+2;
-	}
-		else{
-			sum=Double.parseDouble(poriadokVipolnenia.get(i+1))+sum;
-			
-		}
-	}
-		else{sum=Double.parseDouble(poriadokVipolnenia.get(i+1))+sum;}
-	break;
-	case("/"):
-	
-		sum=sum/Double.parseDouble(poriadokVipolnenia.get(i+1));
-		break;
-	case("*"):
-
-		sum=(sum*Double.parseDouble(poriadokVipolnenia.get(i+1)));
-		break;
-}
-}
-}catch(NumberFormatException e){
-	throw new RuntimeException("Неверный формат цифр");
+		c.setList(poriadokVipolnenia);
+		//System.out.println("asd");
+		s=c.execute(poriadokVipolnenia);
+		//System.out.println(s);
+	sum=Validator.stringToDouble(s);
+}catch(Exception e){
+	throw new RuntimeException("Неверный формат цифр:"+e.getMessage());
 }
 }
 public static List<String> dataToHistory(List<String> list){

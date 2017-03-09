@@ -1,8 +1,11 @@
-package calculator;
+package calculator.ui;
 
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-public class ConsoleUserInterface {
+import calculator.CommandController;
+
+public class ConsoleUserInterface  implements UserInterface{
 	public void run(){
 		Scanner in =new Scanner((System.in));
 		String s;
@@ -28,5 +31,11 @@ public class ConsoleUserInterface {
 		}
 		System.out.println("we are finished");
 		in.close();
+	}
+
+	@Override
+	public void setUIListener(Listener a) {
+		// TODO Auto-generated method stub
+		
 	}
 }

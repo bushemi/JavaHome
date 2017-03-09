@@ -1,14 +1,14 @@
 package calculator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import calculator.commands.fileOperations.Load;
+import calculator.commands.fileOperations.Save;
 
 
 
@@ -20,6 +20,12 @@ public class CommandController {
 	private long date;
 	private List<String> history;
 	private final String DELIMETER = ";";
+	private Save save = Save.getInst();
+	private Load load = Load.getInst();
+	private List<String> exampleList=new ArrayList();
+	private List<String> resultList=new ArrayList();
+	private ExecutorService executor ;
+	private int counter;
 	public CommandController(){
 		//MM/DD/YYYY-HH:mm:SS<AM|PM> Query:<query> Result: <Result>
 		//06/02/2016-12:12:41 PM Query: 2+2 Result: 4
@@ -33,16 +39,39 @@ public class CommandController {
 		cs= new CalculatorService();
 		
 	}
-	private String checkForCommands(String q){
+	private void executors(String ss) {
+		executor=Executors.newFixedThreadPool(4);
+		executor.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				resultList.add(calculation(ss));
+				
+			}
+		});
+		executor.shutdown();
+		try {
+			executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+		} catch (InterruptedException e) {
+		  System.out.println(e.getMessage());
+		}
+//		try{
+//		executor.awaitTermination(60, TimeUnit.SECONDS);}
+//		catch(Exception e){e.printStackTrace();}
+		counter++;
+		if(counter>=100000){System.out.print("q");
+		counter=0;}
+	}
+	private String checkForCommands(String q) throws Exception{
 		if (q.toLowerCase().trim().equals("load")){
-			if(load()){
+			if(load("history.csv")){
 				
 			}
 			throw new RuntimeException("succes load");
 			
 		};
 		if (q.toLowerCase().trim().equals("save")){
-			if(save()){
+			if(save("history.csv")){
 				
 			}
 			throw new RuntimeException("succes save");
@@ -51,23 +80,36 @@ public class CommandController {
 			 if (show()){};
 			 throw new RuntimeException("succes show");
 		};
+		if (q.toLowerCase().trim().equals("loader")){
+			if(load("Math.txt")){
+				
+				exampleList.forEach((e)->executors(e));
+				
+				System.out.println("Done!!!!!");
+				
+				save("Math2.txt");
+			}
+			throw new RuntimeException("succes load");
+			
+		};
 		return new String("");
 	}
-	public String calculation(String q){
+	public String calculation(String q) {
 		
 		
 		date=new Date().getTime();
 		try{
 			checkForCommands(q);
-		cs.rep(q);
-		Double d =cs.getSum();
+			Double d;
+	synchronized(this){	cs.rep(q);
+		d =cs.getSum();}
 		if (d>Integer.MAX_VALUE) {sumString ="Число слишком большое";}
 		if (d<Integer.MIN_VALUE) {sumString ="Число слишком маленькое";}
 		else{
 		sumString = String.format("%.2f", d);}
 		
 		
-		}catch(RuntimeException re){
+		}catch(Exception re){
 			sumString=re.getMessage();
 		}
 		
@@ -79,44 +121,49 @@ public class CommandController {
 		return new String("Quary: "+q+" Result = "+ sumString);
 	}
 	
+	
 	@SuppressWarnings("finally")
-	private boolean save(){
+	private boolean save(String fileName){
 		boolean result = false;
-		
-		CalculatorService.dataToHistory(history).forEach((e)->sb.append(e+"\n"));
-		System.out.println("save1");
-		try(Writer w = new FileWriter("history.csv")){
-			w.write(String.valueOf(sb));
-			result=true;
-			System.out.println("success");
-		}catch(IOException e){
-			System.out.println("fail");
-			result=false;
-			throw new RuntimeException("ошибка записи",e);
-		} finally{
-			return result;
-		}
-		
+		if(fileName.equals("history.csv")){CalculatorService.dataToHistory(history).forEach((e)->sb.append(e+"\n"));}
+		if(fileName.equals("Math2.txt")){CalculatorService.dataToHistory(resultList).forEach((e)->sb.append(e+"\n"));}
+		save.setFile(fileName);
+		try {
+				if(save.execute(sb).equals("done")){
+												result=true;}
+			
+			} catch (Exception e1) {
+			throw new RuntimeException("ошибка записи",e1);
+			
+			} finally{
+				return result;
+				}
 		
 	}
-	private boolean load(){
+	@SuppressWarnings("finally")
+	private boolean load(String fileName) throws Exception{
 		System.out.println("load");
-		
-		try(Scanner in = new Scanner(new File("history.csv"))) {
+		load.setFile(fileName);
+		if (fileName.equals("Math.txt")){
+			exampleList.clear();
 			
-			while (in.hasNextLine()) {
-				String s= in.nextLine();
-				history.add(s);
-				
-			}
+		try{
+		 load.execute(new Object());
+		//String[] splinter=s.split("");
+		 exampleList=new ArrayList(load.getLoadedList());
+//		for(int i = 0;i<splinter.length;i++){
+//			exampleList.add(splinter[i]);
+//			//if (i==9999999){System.out.println("wetry");}
+//		}
+		System.out.println("Loaded "+exampleList.size());
+		}catch (Exception e1) {
+			throw new RuntimeException("ошибка записи",e1);
 			
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		} catch (Exception e){
-			e.printStackTrace();
-		} 
-		return true;
+			} finally{
+				return true;
+				}}
+		//history.add(s);
+	return true;
 	}
 	private boolean show(){
 		

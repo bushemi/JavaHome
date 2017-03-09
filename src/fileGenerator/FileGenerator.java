@@ -11,7 +11,7 @@ public class FileGenerator {
 private static StringBuilder sb;
 private static Random r = new Random();
 private static String[] array = {"+","-","*","/"};
-private static int MAX_COUNT = 10_000_000;
+private static int MAX_COUNT = 1_000_000;
 	public static void main(String[] args) {
 		sb= new StringBuilder();
 

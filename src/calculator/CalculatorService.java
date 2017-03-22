@@ -78,7 +78,8 @@ private void ggg(String s){
 		ls.remove(0);
 	}
 }
-public void rep(String s) {
+public void calculate(String s) {
+	//System.out.println("rep");
 	sum=0;
 	ls.removeAll(ls);
 	ggg(s+"+0");

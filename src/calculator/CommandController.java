@@ -41,25 +41,19 @@ public class CommandController {
 	}
 	private void executors(String ss) {
 		executor=Executors.newFixedThreadPool(4);
-		executor.execute(new Runnable() {
-			
-			@Override
-			public void run() {
-				resultList.add(calculation(ss));
-				
-			}
-		});
+		executor.submit(() -> resultList.add(calculation(ss)));
 		executor.shutdown();
 		try {
 			executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		} catch (InterruptedException e) {
 		  System.out.println(e.getMessage());
 		}
-//		try{
-//		executor.awaitTermination(60, TimeUnit.SECONDS);}
-//		catch(Exception e){e.printStackTrace();}
+
 		counter++;
-		if(counter>=100000){System.out.print("q");
+		if(counter>=resultList.size()/10){
+			
+			System.out.print("10%");
+		
 		counter=0;}
 	}
 	private String checkForCommands(String q) throws Exception{
@@ -101,7 +95,7 @@ public class CommandController {
 		try{
 			checkForCommands(q);
 			Double d;
-	synchronized(this){	cs.rep(q);
+	synchronized(this){	cs.calculate(q);
 		d =cs.getSum();}
 		if (d>Integer.MAX_VALUE) {sumString ="Число слишком большое";}
 		if (d<Integer.MIN_VALUE) {sumString ="Число слишком маленькое";}

@@ -1,5 +1,7 @@
 package calculator.ui;
 
+import calculator.control.CalculatorController;
+
 public class UIFactory {
 	private UserInterface ui;
 	private static UIFactory _instance;
@@ -14,8 +16,13 @@ public class UIFactory {
 	public  UserInterface getUI(String s){
 		if (s.equals("console")){
 			ui=new ConsoleUserInterface();
+		}
+		if (s.equals("desktop")){
+			ui = new DesktopFXUserInterface();
+			
+			
 		}else{
-			ui=new ConsoleUserInterface();//Only one for now.
+			ui=new ConsoleUserInterface();
 		}
 		return ui;
 	}

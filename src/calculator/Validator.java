@@ -10,7 +10,6 @@ public class Validator {
 	private static Validator _instance;
 	private Validator(){
 		p = Pattern.compile("[a-z]");
-		//System.out.println("bla-bla");
 		invalidChars=new ArrayList<>();
 		invalidChars.add("\\");
 		invalidChars.add(",");
@@ -29,7 +28,6 @@ public class Validator {
 	}
 public boolean check(String data){
 	Matcher m= p.matcher(data.toLowerCase());
-	System.out.println(data);
 	if (m.find())return true;
 	for ( String q :invalidChars){
 		if (data.contains(q)){

@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		UIFactory factory = UIFactory.getInstance();
-		UserInterface ui = factory.getUI("console");
+		UserInterface ui = factory.getUI("desktop");
 		ui.run();
 		
 	}

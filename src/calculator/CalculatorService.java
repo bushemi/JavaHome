@@ -78,8 +78,7 @@ private void ggg(String s){
 		ls.remove(0);
 	}
 }
-public void calculate(String s) {
-	//System.out.println("rep");
+public void calculate(String s) throws RuntimeException{
 	sum=0;
 	ls.removeAll(ls);
 	ggg(s+"+0");
@@ -115,11 +114,9 @@ private void ret()
 	
 	
 	
-	//if (2>ls.size())ls.remove(i+2);
 	i=0;
 	
 	}
-//	System.out.println("rrr "+i+";;;" +ls.get(i));
 	}
 	while(0<ls.size()){
 		poriadokVipolnenia.add(ls.get(0));	
@@ -134,9 +131,7 @@ private void count() {
 	try{
 		
 		c.setList(poriadokVipolnenia);
-		//System.out.println("asd");
 		s=c.execute(poriadokVipolnenia);
-		//System.out.println(s);
 	sum=Validator.stringToDouble(s);
 }catch(Exception e){
 	throw new RuntimeException("Неверный формат цифр:"+e.getMessage());

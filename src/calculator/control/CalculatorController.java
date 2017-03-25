@@ -1,25 +1,37 @@
 package calculator.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import calculator.CalculatorService;
 import calculator.ui.Listener;
-import calculator.ui.Observer;
 import calculator.ui.UserInterface;
 
 public class CalculatorController implements Listener{
-	private String[] cases = { "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "bComma", "bPlus", "bMulty",
+	private static CalculatorController _instance;
+	public static final String[] cases = { "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "bComma", "bPlus", "bMulty",
 			"bMinus", "bDivide", "bSqrt", "bExponent", "bPercent", "bLeftBracket", "bRightBracket", "bBackspace",
 			"bLoad", "bSave", "bShowHistory", "bCalculations","unknown" };
 
-	private UserInterface _ui;
-	private Observer listener = Observer.getInstance();
+	
+	private static List<Listener> listeners =new ArrayList<Listener>();
+	private CalculatorService cs =new CalculatorService();
 	
 	public CalculatorController(UserInterface ui) {
-		_ui = ui;
-		Observer.addActionListener(this);
 	
 
 	}
 
-	private String getValue(String s) {
+	
+
+	
+
+	private CalculatorController() {
+	}
+
+
+
+    private String getValue(String s) {
 		int i;
 		if (s.charAt(0)=='1'){return "unknown";}
 		for (i = 0; i < cases.length; i++)
@@ -79,42 +91,65 @@ public class CalculatorController implements Listener{
 			return "calc";
 
 		default:
-			System.out.println("do nothing");
+			return s;
 		}
-		return cases[i];
 	}
-
-	
 
 	@Override
 	public void fireEvent(String eventtoString) {
 		String s = getValue(eventtoString);
 		
-		//System.out.println("+++++++++");
-		if (s.equals("1")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (s.equals("2")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (s.equals("3")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (s.equals("4")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (s.equals("5")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (s.equals("6")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
-		if (!s.equals("unknown")){
-			System.out.println(s+" Hit the button");
-			listener.fireEvent(1+s);}
+		
+
 		if (s.equals("calc")){
-		System.out.println(s+" Hit the button");
-		listener.fireEvent(2+s);}
+		s="get";
+		}
+		if (s.charAt(0)=='$'){
+			s=s.substring(1);
+			try {
+				cs.calculate(s);
+				s=new String("f"+String.valueOf(cs.getSum()));
+			}catch(RuntimeException re)
+				{s=new String("f"+re.getMessage());}
+
+		
+		}
+		update(s);
+	}
+
+
+
+
+
+	public static Listener getInstance() {
+		if (_instance==null){
+			_instance= new CalculatorController();
+		}
+		return _instance;
+	}
+
+
+
+
+	public static void addActionListener(Listener l){
+		for(int i=0;i<listeners.size();i++){
+			if (listeners.get(i).equals(l)){
+				return;
+			}
+		}
+		listeners.add(l);
+	}
+	public static void removeActionListener(Listener l){
+		for(int i=0;i<listeners.size();i++){
+			if (listeners.get(i).equals(l)){
+				listeners.remove(i);
+				return;
+			}
+		}
+	}
+	private void update(String event){
+		listeners.forEach((e)->e.fireEvent(event));
+		
 	}
 }
 

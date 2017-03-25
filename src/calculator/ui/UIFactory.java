@@ -1,7 +1,5 @@
 package calculator.ui;
 
-import calculator.control.CalculatorController;
-
 public class UIFactory {
 	private UserInterface ui;
 	private static UIFactory _instance;

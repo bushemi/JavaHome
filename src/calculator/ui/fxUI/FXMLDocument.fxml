@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="420" maxWidth="600" minHeight="420" minWidth="600" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calculator.ui.fxUI.FXMLDocumentController">
+   <children>
+      <TextArea layoutX="25.0" layoutY="14.0" prefHeight="35.0" prefWidth="556.0" fx:id="textArea"/>
+      <HBox layoutX="15.0" layoutY="56.0" />
+      <Group id="2" layoutX="132.0" layoutY="57.0">
+         <children>
+					<Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="+" onAction="#handlePlusButtonAction" fx:id="bPlus"/>
+					<Button layoutX="47.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="*" onAction="#handlePlusButtonAction" fx:id="bMulty"/>
+					<Button layoutX="14.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" onAction="#handlePlusButtonAction" fx:id="bMinus"/>
+					<Button layoutX="48.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="/" onAction="#handlePlusButtonAction" fx:id="bDivide"/>
+         </children>
+      </Group>
+    
+      <Group id="1" layoutX="15.0" layoutY="57.0">
+					<children>
+            
+						<Button layoutX="10.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="1" onAction="#handlePlusButtonAction" fx:id="b1"/>
+						<Button layoutX="40.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="2" onAction="#handlePlusButtonAction" fx:id="b2"/>
+						<Button layoutX="70.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="3" onAction="#handlePlusButtonAction" fx:id="b3"/>
+						<Button layoutX="10.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="4" onAction="#handlePlusButtonAction" fx:id="b4"/>
+						<Button layoutX="40.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="5" onAction="#handlePlusButtonAction" fx:id="b5"/>
+						<Button layoutX="70.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="6" onAction="#handlePlusButtonAction" fx:id="b6"/>
+						<Button layoutX="10.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="7" onAction="#handlePlusButtonAction" fx:id="b7"/>
+						<Button layoutX="40.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="8" onAction="#handlePlusButtonAction" fx:id="b8"/>
+						<Button layoutX="70.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="35.0" text="9" onAction="#handlePlusButtonAction" fx:id="b9"/>
+						<Button layoutX="10.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="." onAction="#handlePlusButtonAction" fx:id="bComma"/>
+						<Button layoutX="40.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="0" onAction="#handlePlusButtonAction" fx:id="b0"/>
+						<Button layoutX="70.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="del" onAction="#handlePlusButtonAction" fx:id="bBackspace"/>
+         </children>
+      </Group>
+      <Group id="3" layoutY="-2.0">
+         <children>
+            <Button layoutX="140.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="^" onAction="#handlePlusButtonAction" fx:id="bExponent"/>
+			<Button layoutX="180.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text="\%" onAction="#handlePlusButtonAction" fx:id="bPercent"/>
+			<Button layoutX="140.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="(" onAction="#handlePlusButtonAction" fx:id="bLeftBracket"/>
+			<Button layoutX="180.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" text=")" onAction="#handlePlusButtonAction" fx:id="bRightBracket"/>
+            <Button layoutX="130.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="load" onAction="#handlePlusButtonAction" fx:id="bLoad"/>
+            <Button layoutX="180.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="save" onAction="#handlePlusButtonAction" fx:id="bSave"/>
+      		<Button layoutX="235.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="square root" onAction="#handlePlusButtonAction" fx:id="bSqrt"/>
+            <Button layoutX="234.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="showHistory" onAction="#handlePlusButtonAction" fx:id="bShowHistory"/>
+      		<Button layoutX="235.0" layoutY="175.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="100.0" text="calculations" onAction="#handlePlusButtonAction" fx:id="bCalculations"/>
+         </children>
+      </Group>
+     <Button layoutX="235.0" layoutY="88.0" mnemonicParsing="false" text="loadFromFile" onAction="#handlePlusButtonAction" fx:id="bLoadFromFile"/>
+     <Button layoutX="25.0" layoutY="201.0" mnemonicParsing="false" text="Clear" onAction="#clearTextArea" fx:id="bClear"/>
+   </children>
+</Pane>

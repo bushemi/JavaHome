@@ -29,6 +29,7 @@ public class Validator {
 	}
 public boolean check(String data){
 	Matcher m= p.matcher(data.toLowerCase());
+	System.out.println(data);
 	if (m.find())return true;
 	for ( String q :invalidChars){
 		if (data.contains(q)){

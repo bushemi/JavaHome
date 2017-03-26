@@ -31,7 +31,6 @@ public class FXMLDocumentController implements Initializable,Listener {
 		@FXML	private Button bCalculations;
 		@FXML	private Button bLoadFromFile;
 		@FXML	private Button bClear;
-		@FXML	private Button bClearHistory;
 	    private Listener a;
 	    private boolean _newExampleFlag = true;
 	    public FXMLDocumentController(){
@@ -39,11 +38,13 @@ public class FXMLDocumentController implements Initializable,Listener {
 	    }
 	    @FXML
 	    private void handlePlusButtonAction(ActionEvent event) {
+	    	
+	    	
+	    	
 	    	a.fireEvent(event.getSource().toString());
-	    }
-	    @FXML
-	    private void clearHistory(ActionEvent event) {
-	    	a.fireEvent(event.getSource().toString());
+	    
+	    	
+	       
 	    }
 
 	    
@@ -67,17 +68,16 @@ public class FXMLDocumentController implements Initializable,Listener {
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	    	a=CalculatorController.getInstance();
-	    	
 	    	bExponent.setVisible(false);
+	    	bLeftBracket.setVisible(false);
 	    	bLoad.setVisible(false);
 	    	bExponent.setVisible(false);
 	    	bPercent.setVisible(false);
+	    	bRightBracket.setVisible(false);
 	    	bSave.setVisible(false);
 	    	bSqrt.setVisible(false);
 	    	bShowHistory.setVisible(false);
 	    	bLoadFromFile.setVisible(false);
-	    	bClearHistory.setVisible(false);
-	    	
 	    	
 	    	
 	    }

@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import calculator.CalculatorService;
-import calculator.Validator;
 import calculator.ui.Listener;
 import calculator.ui.UserInterface;
 
 public class CalculatorController implements Listener{
 	private static CalculatorController _instance;
-	private Validator v;
 	public static final String[] cases = { "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9", "bComma", "bPlus", "bMulty",
 			"bMinus", "bDivide", "bSqrt", "bExponent", "bPercent", "bLeftBracket", "bRightBracket", "bBackspace",
 			"bLoad", "bSave", "bShowHistory", "bCalculations","unknown" };
@@ -19,13 +17,21 @@ public class CalculatorController implements Listener{
 	private static List<Listener> listeners =new ArrayList<Listener>();
 	private CalculatorService cs =new CalculatorService();
 	
+	public CalculatorController(UserInterface ui) {
+	
+
+	}
+
+	
+
+	
+
 	private CalculatorController() {
-		v=Validator.getInstance();
 	}
 
 
-   
-	private String getValue(String s) {
+
+    private String getValue(String s) {
 		int i;
 		if (s.charAt(0)=='1'){return "unknown";}
 		for (i = 0; i < cases.length; i++)
@@ -101,7 +107,8 @@ public class CalculatorController implements Listener{
 		if (s.charAt(0)=='$'){
 			s=s.substring(1);
 			try {
-				s=new String("f"+workingWithBracket(s));
+				cs.calculate(s);
+				s=new String("f"+String.valueOf(cs.getSum()));
 			}catch(RuntimeException re)
 				{s=new String("f"+re.getMessage());}
 
@@ -110,27 +117,7 @@ public class CalculatorController implements Listener{
 		update(s);
 	}
 
- private String workingWithBracket(String text)throws RuntimeException{
-	 String s=new String(text);
-	 String result = "";
-	 if (v.isOkayWithBrackets(s)){while(v.countingLeftBrackets(s)>0){
-			int q1=s.lastIndexOf('(')+1;
-			int q2=s.indexOf(')');
-			String q3=s.substring(q1, q2);
-			System.out.println("new string: "+q3);
-			cs.calculate(q3);
-			String newResult = String.valueOf(cs.getSum());
-			String q4=s.replace('('+q3+')', newResult);
-			//System.out.println(q4);
-			s = new String(q4);
-			System.out.println(s +":" + v.countingLeftBrackets(s));}
-	 cs.calculate(s);
-	 result=String.valueOf(cs.getSum());
-		}
-		else{
-			throw new RuntimeException("fail");}
-	 return result;
- }
+
 
 
 

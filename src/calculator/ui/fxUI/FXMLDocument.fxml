@@ -50,7 +50,6 @@
          </children>
       </Group>
      <Button layoutX="235.0" layoutY="88.0" mnemonicParsing="false" text="loadFromFile" onAction="#handlePlusButtonAction" fx:id="bLoadFromFile"/>
-     <Button layoutX="25.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Clear" onAction="#clearTextArea" fx:id="bClear"/>
-	 <Button layoutX="25.0" layoutY="222.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Clear history" onAction="#clearHistory" fx:id="bClearHistory"/>
+     <Button layoutX="25.0" layoutY="201.0" mnemonicParsing="false" text="Clear" onAction="#clearTextArea" fx:id="bClear"/>
    </children>
 </Pane>

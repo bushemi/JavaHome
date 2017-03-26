@@ -10,6 +10,7 @@ public class Validator {
 	private static Validator _instance;
 	private Validator(){
 		p = Pattern.compile("[a-z]");
+		//System.out.println("bla-bla");
 		invalidChars=new ArrayList<>();
 		invalidChars.add("\\");
 		invalidChars.add(",");
@@ -28,6 +29,7 @@ public class Validator {
 	}
 public boolean check(String data){
 	Matcher m= p.matcher(data.toLowerCase());
+	System.out.println(data);
 	if (m.find())return true;
 	for ( String q :invalidChars){
 		if (data.contains(q)){
@@ -36,26 +38,6 @@ public boolean check(String data){
 	}
 	return false;
 }
-public boolean isOkayWithBrackets(String s){
-	int count= 0;
-	boolean result=true;
-	count = countingLeftBrackets(s)-countingRightBrackets(s);
-	if (count==0){result=true;}
-	else{result=false;}
-	
-	return result;
-}
-public int countingLeftBrackets(String s){
-	int count= 0;
-	count =  s.length() - s.substring(0).replaceAll("\\(","").length();
-	return count;
-}
-private int countingRightBrackets(String s){
-	int count= 0;
-	count =  s.length() - s.substring(0).replaceAll("\\)","").length();
-	return count;
-}  
-
 public static  Double stringToDouble(Object o){
 	String s="";
 	Double d=0.0;

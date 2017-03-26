@@ -103,20 +103,20 @@ private void ret()
 
 	if ((s.contains("*"))||(s.contains("/"))) {
 		poriadokVipolnenia.add(ls.get(i-2));
-	poriadokVipolnenia.add(ls.get(i-1));
-	poriadokVipolnenia.add(ls.get(i));
-	poriadokVipolnenia.add(ls.get(i+1));
+		poriadokVipolnenia.add(ls.get(i-1));
+		poriadokVipolnenia.add(ls.get(i));
+		poriadokVipolnenia.add(ls.get(i+1));
 	
-	ls.remove(i+1);
-	ls.remove(i);
-	ls.remove(i-1);
-	ls.remove(i-2);
+		ls.remove(i+1);
+		ls.remove(i);
+		ls.remove(i-1);
+		ls.remove(i-2);
 	
 	
 	
-	i=0;
+		i=0;
 	
-	}
+		}
 	}
 	while(0<ls.size()){
 		poriadokVipolnenia.add(ls.get(0));	

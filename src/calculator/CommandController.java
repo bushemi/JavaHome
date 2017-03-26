@@ -13,7 +13,7 @@ import calculator.commands.fileOperations.Save;
 
 
 public class CommandController {
-	private String sumString="poi";
+	private String sumString="";
 	private CalculatorService cs;
 	
 	private StringBuilder sb;
@@ -46,7 +46,7 @@ public class CommandController {
 		try {
 			executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		} catch (InterruptedException e) {
-		  System.out.println(e.getMessage());
+		  throw new RuntimeException(e.getMessage());
 		}
 
 		counter++;
@@ -143,12 +143,7 @@ public class CommandController {
 			
 		try{
 		 load.execute(new Object());
-		//String[] splinter=s.split("");
 		 exampleList=new ArrayList(load.getLoadedList());
-//		for(int i = 0;i<splinter.length;i++){
-//			exampleList.add(splinter[i]);
-//			//if (i==9999999){System.out.println("wetry");}
-//		}
 		System.out.println("Loaded "+exampleList.size());
 		}catch (Exception e1) {
 			throw new RuntimeException("ошибка записи",e1);
@@ -156,7 +151,6 @@ public class CommandController {
 			} finally{
 				return true;
 				}}
-		//history.add(s);
 	return true;
 	}
 	private boolean show(){

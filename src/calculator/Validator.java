@@ -36,6 +36,26 @@ public boolean check(String data){
 	}
 	return false;
 }
+public boolean isOkayWithBrackets(String s){
+	int count= 0;
+	boolean result=true;
+	count = countingLeftBrackets(s)-countingRightBrackets(s);
+	if (count==0){result=true;}
+	else{result=false;}
+	
+	return result;
+}
+public int countingLeftBrackets(String s){
+	int count= 0;
+	count =  s.length() - s.substring(0).replaceAll("\\(","").length();
+	return count;
+}
+private int countingRightBrackets(String s){
+	int count= 0;
+	count =  s.length() - s.substring(0).replaceAll("\\)","").length();
+	return count;
+}  
+
 public static  Double stringToDouble(Object o){
 	String s="";
 	Double d=0.0;
